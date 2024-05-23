@@ -24,14 +24,14 @@ const InputError = require("../exceptions/InputError.js");
   server.ext("onPreResponse", function (request, h) {
     const response = request.response;
 
-    // if (response instanceof InputError) {
-    //   const newResponse = h.response({
-    //     status: "fail",
-    //     message: `${response.message} Silahkan gunakan foto lain`,
-    //   });
-    //   newResponse.code(response.statusCode);
-    //   return newResponse;
-    // }
+    if (response instanceof InputError) {
+      const newResponse = h.response({
+        status: "fail",
+        message: `${response.message} Silahkan gunakan foto lain`,
+      });
+      newResponse.code(response.statusCode);
+      return newResponse;
+    }
 
     if (response.isBoom) {
       const newResponse = h.response({
